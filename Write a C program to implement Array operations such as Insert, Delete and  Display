@@ -1,0 +1,78 @@
+#include <stdio.h>
+#define SIZE 100
+int arr[SIZE];
+int n = 0;
+void display() {
+    int i;
+    if (n == 0) {
+        printf("Array is empty.\n");
+        return;
+    }
+    printf("Array elements: ");
+    for (i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+void insert(int pos, int value) {
+    if (n == SIZE) {
+        printf("Array is full. Cannot insert.\n");
+        return;
+    }
+    if (pos < 0 || pos > n) {
+        printf("Invalid position.\n");
+        return;
+    }
+    for (int i = n; i > pos; i--) {
+        arr[i] = arr[i - 1];
+    }
+    arr[pos] = value;
+    n++;
+    printf("Inserted %d at position %d\n", value, pos);
+}
+void delete(int pos) {
+    if (n == 0) {
+        printf("Array is empty. Cannot delete.\n");
+        return;
+    }
+    if (pos < 0 || pos >= n) {
+        printf("Invalid position.\n");
+        return;
+    }
+    int deleted = arr[pos];
+    for (int i = pos; i < n - 1; i++) {
+        arr[i] = arr[i + 1];
+    }
+    n--;
+    printf("Deleted element %d from position %d\n", deleted, pos);
+}
+int main() {
+    int choice, pos, value;
+    while (1) {
+        printf("\nArray Operations Menu:\n");
+        printf("1. Insert\n2. Delete\n3. Display\n4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        switch (choice) {
+            case 1:
+                printf("Enter position (0 to %d): ", n);
+                scanf("%d", &pos);
+                printf("Enter value: ");
+                scanf("%d", &value);
+                insert(pos, value);
+                break;
+            case 2:
+                printf("Enter position (0 to %d): ", n - 1);
+                scanf("%d", &pos);
+                delete(pos);
+                break;
+            case 3:
+                display();
+                break;
+            case 4:
+                return 0;
+            default:
+                printf("Invalid choice.\n");
+        }
+    }
+}
